@@ -1,1 +1,0 @@
-# amittksingh-me.github.io
