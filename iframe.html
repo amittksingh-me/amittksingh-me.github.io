@@ -1,14 +1,32 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Embed AR</title>
+    <script type="text/javascript">
+        window.addEventListener('load', () => {
+            console.log(`Before document.cookie: ${document.cookie}`);
+            document.hasStorageAccess().then(hasAccess => {
+                console.log('hasAccess: ' + hasAccess);
+                if (!hasAccess) {
+                    return document.requestStorageAccess();
+                }
+            }).then(_ => {
+                console.log('Now we have first-party storage access!');
+                document.cookie = "name=abc"
+                console.log(`test setting of document.cookie: ${document.cookie}`);
+            }).catch(_ => {
+                console.log('error');
+            });
+        });
+    </script>
 </head>
 
 <body>
-    <iframe src="https://ny.matrix-uat.ms.com/eqr/research/webapp/static/bot/index.html" style="height: 600px;width: 400px;"></iframe>
+    <iframe src="https://ny.matrix-uat.ms.com/eqr/research/webapp/static/bot/index.html"
+        style="height: 600px;width: 400px;"
+        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin"></iframe>
 </body>
 
 </html>
