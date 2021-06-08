@@ -7,6 +7,8 @@
     <script type="text/javascript">
         window.addEventListener('load', () => {
             console.log(`Before document.cookie: ${document.cookie}`);
+            console.log('Before iframe contentDocument'+document.getElementById("iframeId").contentDocument);
+            console.log('Before iframe cookie'+document.getElementById("iframeId").contentDocument.cookie);
             document.hasStorageAccess().then(hasAccess => {
                 console.log('hasAccess: ' + hasAccess);
                 if (!hasAccess) {
@@ -14,6 +16,8 @@
                 }
             }).then(_ => {
                 console.log('Now we have first-party storage access!');
+                console.log('After Access iframe contentDocument'+document.getElementById("iframeId").contentDocument);
+                console.log('After Access iframe cookie'+document.getElementById("iframeId").contentDocument.cookie);
                 document.cookie = "name=abc"
                 console.log(`test setting of document.cookie: ${document.cookie}`);
             }).catch(_ => {
@@ -25,8 +29,8 @@
 
 <body>
     <iframe src="https://ny.matrix-uat.ms.com/eqr/research/webapp/static/bot/index.html"
-        style="height: 600px;width: 400px;"
-        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin"></iframe>
+        style="height: 600px;width: 400px;" id="iframeId"
+        sandbox="allow-storage-access-by-user-activation allow-scripts allow-same-origin allow-forms"></iframe>
 </body>
 
 </html>
